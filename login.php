@@ -3,11 +3,14 @@
 require __DIR__ . "/const.php";
 require __DIR__ . "/vendor/autoload.php";
 
-use \Firebase\JWT\JWK;
 use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
 
 // POST時
 if (strtoupper($_SERVER["REQUEST_METHOD"] == "POST")) {
+// $secret
+
+    // json文字列取得
     $inputString = file_get_contents("php://input");
     $input = @json_decode($inputString, true);
 
@@ -16,6 +19,7 @@ if (strtoupper($_SERVER["REQUEST_METHOD"] == "POST")) {
         $username = $input["username"];
         $password = $input["password"];
 
+        // username = test, password = testで認証OK
         $ok = ($username == "test" && $password == "test");
         if ($ok) {
             $payload = array(
